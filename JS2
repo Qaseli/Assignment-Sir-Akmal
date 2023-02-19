@@ -108,7 +108,7 @@ function invitePeople(e){
     let email   = document.getElementById('emailid').value;
     let roomId2 = document.getElementById('roomid2').value;
 
-    fetch('https://webexapis.com/v1/memberships'.{
+    fetch('https://webexapis.com/v1/memberships',{
         method: 'POST',
         headers: {
             'Content-type'  : 'application/json',
