@@ -1,0 +1,138 @@
+document.getElementById('next').addEventListener('click',animate2);
+
+function animate2(){
+    document.getElementById('darkoverlay').classList.add('darkoverlay3');
+
+    const webexlogo = hidediv('webexlogo');
+    const accesstokenlabal = hiddeiv('accesstokenlabel');
+    const tokeninputfield = hidediv('tokeninputfield');
+    const greenlogin = hidediv('greenlogin');
+    const personalinfo = hidediv('personalinfo');
+    const getpersonabutton = hidediv('getpersonalbutton');
+    const next = hidediv('next');
+    const back = appeardiv('back');
+    const roomlist = appeardiv('roomlist');
+    const getlistroombutton = appeardiv('getlistroombutton');
+    const sendmessage = appeardiv ('sendmessage');
+    const createroom = appeardiv ('createroom');
+    const invite = appeardiv('invite');
+
+    const token = document.getElementById('tokeninputfield').value
+
+    document.getElementById('exit').addEventListener('click',exit);
+    document.getElementById('getlistbuttonbutton').addEventListener('click',getrooms);
+
+    function getrooms(){
+        fetch('http://webexapis.com/v1/rooms?max=5', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        .then((res) => res.json())
+        .them((data) => {
+            let output ='';
+            for(i=0; i<data.items.length; i=i+1){
+                output += `
+                        <b>Room ID:</b><br> ${data.item[i].id}<br><br>
+                        <b>Room Name:</b><br> ${data.items[1].title}<br><br>
+                        <b>Created:</b><br> ${data.items[i].created}<br><br>
+                        <b>Last Activity:</b><br> ${data.items[i].lastActivity}<br><br>
+                       
+                       `
+            }        
+            document.getElementById('roomlist').innerHTML=output;
+        })
+        .catch(errs=>console.log(err));
+    }
+}
+document.getElementById('formid').addEventListener('submit',sendText);
+
+function sendText(e) {
+    e.preventDefault();
+
+    const token = document.getElementById('tokeninputfield').value
+    let message = document.getElementById('messageText').value;
+    let roomId  = document.getElementById('roomid').value;
+
+    fetch('https://webexapis.com/v1/messages', {
+        method: 'POST',
+        headers: {
+            'Content-type' : 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify({
+            'roomId':roomId,
+            'text'  :message
+        })
+    })
+    .then(function(res){
+        return res.json()
+    })
+    .then(function(data){
+        console.log(data);
+    })
+}
+document.getElementById('createid').addEventListener('submit',createRoom);
+
+function createRoom(e){
+    e.preventDefault();
+
+    const token = document.getElementById('tokeninputfield').value
+    let roomname= document.getElementById('titleid').value;
+
+    fetch('https://webexapis.com/v1/rooms',{
+        method: 'POST',
+        headers: {
+            'Content-type'  : 'application/json',
+            'Authorization' : `Bearer ${token}`
+        },
+        body:JSON.stringify({
+            'title': roomname
+        })
+    })
+    .then(function(res){
+        return res.json()
+    })
+    .then(function(data){
+        console.log(data);
+    })
+}
+document.getElementById('inviteid').addEventListener('submit',invitePeople);
+
+function invitePeople(e){
+    e.preventDefault();
+
+    const token = document.getElementById('tokeninputfield').value
+    let email   = document.getElementById('emailid').value;
+    let roomId2 = document.getElementById('roomid2').value;
+
+    fetch('https://webexapis.com/v1/memberships'.{
+        method: 'POST',
+        headers: {
+            'Content-type'  : 'application/json',
+            'Authorization' : `Bearer ${token}`
+        
+        },
+        body:JSON.stringify({
+            'roomId'    :roomId2,
+            'personEmail'   :email
+        })
+    })
+    .then(function(res){
+        return res.json()
+    })
+    .then(function(data){
+        console.log(data);
+    })
+}
+function exit() {
+    window.location.href = "index.html";
+}
+function apperdiv(id){
+    return document.getElementById(id).style.display = "unset"
+}
+function hidediv(id){
+    return document.getElementById(id).style.display="none"
+}
