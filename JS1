@@ -1,0 +1,52 @@
+document.getElementById('greenlogin').addEventListener('click',animate);
+
+function animate(){
+    document.getElementById('darkoverlay').classList.add('darkoverlay2');
+
+    const webexlogo = hidediv('webexlogo');
+    const accesstokenlabal = hiddeiv('accesstokenlabel');
+    const tokeninputfield = hidediv('tokeninputfield');
+    const greenlogin = hidediv('greenlogin');
+    const back = hidediv('back');
+    const roomlist = hidediv('roomlist');
+    const getlistroombutton = hidediv('getlistroombutton');
+    const sendmessage = hidediv ('sendmessage');
+    const createroom = hidediv ('createroom');
+    const invite = hidediv('invite');
+
+    const token = document.getElementById('tokeninputfield').value
+
+    document.getElementById('exit').addEventListener('click',exit);
+    document.getElementById('getpersonalbutton').addEventListener('click',getinfo);
+
+    function getinfo(){
+        fetch('http://webexapis.com/v1/people/me', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        .then((res) => res.json())
+        .them((data) => {
+            let output ='';
+                output = `
+                        <b>User ID:</b><br> ${data.id}<br><br>
+                        <b>Display Name:</b><br> ${data.displayname}<br><br>
+                        <b>NickName:</b><br> ${data.nickname}<br><br>
+                        <b>First Name:</b><br> ${data.firstname}<br><br>
+                        <b>Last Name:</b><br> ${data.lastname}<br><br>
+                        <b>Emails:</b><br> ${data.emails}<br><br>
+                       `
+                    
+            document.getElementById('personalinfo').innerHTML=output;
+        })
+        .catch(errs=>console.log(err));
+    }
+}
+function exit() {
+    window.location.href = "index.html";
+}
+function hidediv(id){
+    return document.getElementById(id).style.display="none"
+}
