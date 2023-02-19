@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webex Web Application</title>
+    <link rel="stylesheet" href="week10.css">
 </head>
 <body>
     <div class = "wrapper">
@@ -110,8 +111,8 @@
             </div>
         </div>
     </div>
-    <script src="personal.js"></script>
-    <script src="room.js"></script>
-    <script src="backtopersonal.js"></script>
+    <script src="week10.js"></script>
+    <script src="week101.js"></script>
+    <script src="week102.js"></script>
 </body>
 </html>
