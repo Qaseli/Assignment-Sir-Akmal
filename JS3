@@ -23,7 +23,7 @@ function animate3(){
     document.getElementById('getpersonalbutton').addEventListener('click',getinfo);
 
     function getinfo(){
-        fetch('http://webexapis.com/v1/rooms', {
+        fetch('https://webexapis.com/v1/rooms', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -31,7 +31,7 @@ function animate3(){
             },
         })
         .then((res) => res.json())
-        .them((data) => {
+        .then((data) => {
             let output ='';
             for(i=0; i<data.items.length; i=i+1){
                 output += `
