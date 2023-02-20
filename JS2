@@ -4,7 +4,7 @@ function animate2(){
     document.getElementById('darkoverlay').classList.add('darkoverlay3');
 
     const webexlogo = hidediv('webexlogo');
-    const accesstokenlabal = hiddeiv('accesstokenlabel');
+    const accesstokenlabal = hidediv('accesstokenlabel');
     const tokeninputfield = hidediv('tokeninputfield');
     const greenlogin = hidediv('greenlogin');
     const personalinfo = hidediv('personalinfo');
@@ -20,10 +20,10 @@ function animate2(){
     const token = document.getElementById('tokeninputfield').value
 
     document.getElementById('exit').addEventListener('click',exit);
-    document.getElementById('getlistbuttonbutton').addEventListener('click',getrooms);
+    document.getElementById('getlistroombutton').addEventListener('click',getrooms);
 
     function getrooms(){
-        fetch('http://webexapis.com/v1/rooms?max=5', {
+        fetch('https://webexapis.com/v1/rooms?max=5', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -31,20 +31,20 @@ function animate2(){
             },
         })
         .then((res) => res.json())
-        .them((data) => {
+        .then((data) => {
             let output ='';
-            for(i=0; i<data.items.length; i=i+1){
+            for(i=0; i<data.items.length; i++){
                 output += `
-                        <b>Room ID:</b><br> ${data.item[i].id}<br><br>
-                        <b>Room Name:</b><br> ${data.items[1].title}<br><br>
-                        <b>Created:</b><br> ${data.items[i].created}<br><br>
+                        <b>Room ID:</b><br> ${data.items[i].id}<br>
+                        <b>Room Name:</b><br> ${data.items[1].title}<br>
+                        <b>Created:</b><br> ${data.items[i].created}<br>
                         <b>Last Activity:</b><br> ${data.items[i].lastActivity}<br><br>
                        
                        `
             }        
             document.getElementById('roomlist').innerHTML=output;
         })
-        .catch(errs=>console.log(err));
+        .catch(errs=>console.log(errs));
     }
 }
 document.getElementById('formid').addEventListener('submit',sendText);
@@ -130,7 +130,7 @@ function invitePeople(e){
 function exit() {
     window.location.href = "index.html";
 }
-function apperdiv(id){
+function appeardiv(id){
     return document.getElementById(id).style.display = "unset"
 }
 function hidediv(id){
