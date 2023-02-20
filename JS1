@@ -4,7 +4,7 @@ function animate(){
     document.getElementById('darkoverlay').classList.add('darkoverlay2');
 
     const webexlogo = hidediv('webexlogo');
-    const accesstokenlabal = hiddeiv('accesstokenlabel');
+    const accesstokenlabal = hidediv('accesstokenlabel');
     const tokeninputfield = hidediv('tokeninputfield');
     const greenlogin = hidediv('greenlogin');
     const back = hidediv('back');
@@ -20,7 +20,7 @@ function animate(){
     document.getElementById('getpersonalbutton').addEventListener('click',getinfo);
 
     function getinfo(){
-        fetch('http://webexapis.com/v1/people/me', {
+        fetch('https://webexapis.com/v1/people/me', {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
@@ -28,7 +28,7 @@ function animate(){
             },
         })
         .then((res) => res.json())
-        .them((data) => {
+        .then((data) => {
             let output ='';
                 output = `
                         <b>User ID:</b><br> ${data.id}<br><br>
